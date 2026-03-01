@@ -1,0 +1,50 @@
+name: Deploy Backend & Frontend via FTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # ---------------- BACKEND ----------------
+      - name: Install Backend Dependencies
+        working-directory: backend
+        run: npm install
+
+      - name: Deploy Backend via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: backend/
+          server-dir: ${{ secrets.BACKEND_PATH }}/
+          exclude: |
+            **/node_modules/**
+            **/.env**
+            **/.git**
+
+      # ---------------- FRONTEND ----------------
+      - name: Install Frontend Dependencies
+        working-directory: frontend
+        run: npm install
+
+      - name: Build Frontend (Vite)
+        working-directory: frontend
+        run: npm run build
+
+      - name: Deploy Frontend via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: frontend/dist/
+          server-dir: ${{ secrets.FRONTEND_PATH }}/
