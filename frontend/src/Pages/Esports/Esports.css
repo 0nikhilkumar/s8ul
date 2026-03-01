@@ -1,0 +1,523 @@
+/* ═══════════════════════════════════════
+   ESPORTS PAGE - Component Specific Styles
+   ═══════════════════════════════════════ */
+
+/* Esports Page Container */
+.esports-page {
+  padding-top: 100px;
+  min-height: 100vh;
+  background: #050505;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background image - slider10.png */
+.esports-page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('/s8ul/slider10.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Dark overlay on top of background image for readability */
+.esports-page::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(5, 5, 5, 0.5) 0%, transparent 70%),
+    radial-gradient(ellipse 100% 60% at 50% 100%, rgba(5, 5, 5, 0.8) 0%, transparent 80%),
+    linear-gradient(to bottom, rgba(5,5,5,0.4) 0%, rgba(5,5,5,0.2) 40%, rgba(5,5,5,0.6) 100%),
+    radial-gradient(ellipse 20% 15% at 50% 50%, rgba(120, 50, 255, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 15% 10% at 30% 60%, rgba(255, 50, 80, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse 12% 12% at 70% 40%, rgba(50, 130, 255, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Championship Badge */
+.champ-badge-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+  margin-bottom: 0.2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(120, 50, 255, 0.15);
+  border: 1px solid rgba(120, 50, 255, 0.4);
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+}
+
+.badge-icon {
+  color: rgba(120, 50, 255, 0.8);
+}
+
+.hero-badge span {
+  color: rgba(120, 50, 255, 0.8);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+}
+
+/* Tabs Section */
+.tabs-section {
+  padding: 2rem 0 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.tabs-container {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.tab-button {
+  background: rgba(20, 20, 20, 0.6);
+  border: 2px solid rgba(120, 50, 255, 0.3);
+  color: #aaa;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: all 0.3s;
+  backdrop-filter: blur(10px);
+  letter-spacing: 0.05em;
+}
+
+.tab-button:hover {
+  background: rgba(30, 30, 30, 0.8);
+  border-color: rgba(120, 50, 255, 0.6);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(120, 50, 255, 0.3);
+}
+
+.tab-button.active {
+  background: linear-gradient(135deg, rgba(120, 50, 255, 0.9), rgba(80, 30, 200, 0.9));
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 8px 25px rgba(120, 50, 255, 0.4);
+}
+
+.tab-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Lineup Selector */
+.lineup-selector {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.lineup-btn {
+  background: rgba(20, 20, 20, 0.6);
+  border: 2px solid rgba(120, 50, 255, 0.3);
+  color: #aaa;
+  padding: 1rem 2rem;
+  border-radius: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.3s;
+  backdrop-filter: blur(10px);
+  letter-spacing: 0.05em;
+}
+
+.lineup-logo {
+  width: 35px;
+  height: 35px;
+  background: linear-gradient(135deg, rgba(120, 50, 255, 0.9), rgba(80, 30, 200, 0.9));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+
+.lineup-btn:hover {
+  background: rgba(30, 30, 30, 0.8);
+  border-color: rgba(120, 50, 255, 0.6);
+  transform: translateY(-3px);
+}
+
+.lineup-btn.active {
+  background: rgba(120, 50, 255, 0.15);
+  border-color: rgba(120, 50, 255, 0.8);
+  color: white;
+  box-shadow: 0 8px 30px rgba(120, 50, 255, 0.4);
+}
+
+/* Players Section */
+.players-section {
+  padding: 4rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  background: linear-gradient(135deg, #ffffff, #aaa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.title-underline {
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(135deg, rgba(120, 50, 255, 0.9), rgba(180, 100, 255, 0.8));
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+.players-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Player Card */
+.player-card {
+  perspective: 1000px;
+}
+
+.card-inner {
+  position: relative;
+  background: rgba(20, 20, 20, 0.8);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid rgba(120, 50, 255, 0.3);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+}
+
+.player-card:hover .card-inner {
+  border-color: rgba(120, 50, 255, 0.8);
+  transform: translateY(-8px) rotateY(5deg);
+  box-shadow: 0 15px 50px rgba(120, 50, 255, 0.4);
+}
+
+.card-image-wrapper {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s;
+}
+
+.player-card:hover .card-image {
+  transform: scale(1.1);
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, 
+    transparent 0%, 
+    rgba(0, 0, 0, 0.3) 50%,
+    rgba(0, 0, 0, 0.9) 100%);
+  pointer-events: none;
+}
+
+.card-logo {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 10;
+}
+
+.logo-badge {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(120, 50, 255, 0.8);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  color: rgba(120, 50, 255, 0.9);
+  box-shadow: 0 4px 20px rgba(120, 50, 255, 0.4);
+}
+
+/* ── Card Content ── */
+.card-content {
+  padding: 1rem;
+}
+
+.card-name {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.3rem;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  display: block;
+}
+
+.card-role {
+  color: rgba(120, 50, 255, 0.9);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.card-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 100%, rgba(120, 50, 255, 0.3), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.player-card:hover .card-glow {
+  opacity: 1;
+}
+
+/* Roster state (loading / error / empty) */
+.roster-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 64px 24px;
+  text-align: center;
+  color: #a0aec0;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.roster-loading { color: #63b3ed; }
+
+.spin-icon {
+  width: 36px;
+  height: 36px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.roster-error { color: #fc8181; }
+
+.state-icon {
+  width: 40px;
+  height: 40px;
+  opacity: 0.7;
+}
+
+.retry-btn {
+  margin-top: 8px;
+  padding: 8px 24px;
+  background: transparent;
+  border: 1px solid #fc8181;
+  color: #fc8181;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background 0.2s, color 0.2s;
+}
+
+.retry-btn:hover {
+  background: #fc8181;
+  color: #1a202c;
+}
+
+.roster-empty { color: #718096; }
+
+/* ═══════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   ═══════════════════════════════════════ */
+
+@media (min-width: 1440px) {
+  .esports-page { padding-top: 120px; }
+  .players-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem;
+    max-width: 1600px;
+  }
+  .section-title  { font-size: 4rem; }
+  .card-name      { font-size: 1rem; }
+  .tab-button     { padding: 0.85rem 1.75rem; font-size: 0.95rem; }
+  .lineup-btn     { padding: 1.15rem 2.5rem;  font-size: 1.1rem;  }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .players-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  .section-title { font-size: 3rem; }
+  .card-name     { font-size: 0.95rem; }
+}
+
+@media (max-width: 1023px) {
+  .esports-page { padding-top: 90px; }
+  .players-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+  }
+  .tabs-container { gap: 0.5rem; padding: 0 1rem; }
+  .tab-button     { padding: 0.7rem 1.3rem; font-size: 0.8rem; }
+  .lineup-btn     { padding: 0.9rem 1.8rem; font-size: 0.95rem; }
+  .section-title  { font-size: 2.5rem; }
+  .card-name      { font-size: 0.9rem; }
+}
+
+@media (max-width: 767px) {
+  .esports-page            { padding-top: 80px; }
+  .champ-badge-wrapper     { margin-top: 1.2rem; margin-bottom: 0.5rem; }
+  .hero-badge              { padding: 0.65rem 1.3rem; }
+  .hero-badge span         { font-size: 0.8rem; }
+  .tabs-section            { padding: 1.5rem 0 1rem; }
+  .tabs-container {
+    gap: 0.4rem;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 0 1rem 0.5rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tab-button   { padding: 0.65rem 1.2rem; font-size: 0.75rem; gap: 0.5rem; flex-shrink: 0; }
+  .tab-icon     { width: 16px; height: 16px; }
+  .lineup-selector { flex-direction: row; gap: 0.6rem; padding: 0 1rem; }
+  .lineup-btn   { flex: 1; padding: 0.85rem 1.2rem; font-size: 0.9rem; justify-content: center; }
+  .lineup-logo  { width: 32px; height: 32px; font-size: 1.2rem; }
+  .players-grid { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+  .players-section  { padding: 3rem 0; }
+  .section-header   { margin-bottom: 2.5rem; }
+  .section-title    { font-size: 2.2rem; }
+  .card-inner       { border-radius: 12px; }
+  .card-content     { padding: 0.85rem; }
+  .card-name        { font-size: 0.85rem; }
+  .card-role        { font-size: 0.7rem; }
+  .logo-badge       { padding: 0.35rem 0.7rem; font-size: 0.9rem; }
+  .card-logo        { top: 0.6rem; right: 0.6rem; }
+}
+
+@media (max-width: 599px) {
+  .esports-page            { padding-top: 70px; }
+  .champ-badge-wrapper     { margin-top: 1rem; margin-bottom: 0.3rem; }
+  .tabs-section            { padding: 1.2rem 0 0.8rem; }
+  .tabs-container          { gap: 0.35rem; padding: 0 0.75rem 0.5rem; }
+  .tab-button              { padding: 0.6rem 1rem; font-size: 0.7rem; }
+  .lineup-selector         { flex-direction: column; gap: 0.5rem; padding: 0 0.75rem; }
+  .lineup-btn              { width: 100%; padding: 0.8rem 1.5rem; font-size: 0.85rem; }
+  .players-grid            { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .section-title           { font-size: 1.8rem; }
+  .card-inner              { border-radius: 10px; }
+  .card-content            { padding: 0.75rem; }
+  .card-name               { font-size: 0.82rem; }
+  .card-role               { font-size: 0.68rem; }
+  .logo-badge              { padding: 0.3rem 0.6rem; font-size: 0.85rem; }
+  .card-logo               { top: 0.5rem; right: 0.5rem; }
+}
+
+@media (max-width: 479px) {
+  .esports-page            { padding-top: 65px; }
+  .hero-badge              { padding: 0.55rem 1.1rem; }
+  .hero-badge span         { font-size: 0.7rem; }
+  .badge-icon              { width: 16px; height: 16px; }
+  .players-grid            { grid-template-columns: 1fr; gap: 1.2rem; max-width: 320px; margin: 0 auto; }
+  .card-inner              { max-width: 300px; margin: 0 auto; border-radius: 10px; }
+  .section-title           { font-size: 1.6rem; letter-spacing: 0.05em; }
+  .title-underline         { width: 80px; height: 3px; }
+  .card-content            { padding: 0.7rem; }
+  .card-name               { font-size: 0.8rem; }
+  .card-role               { font-size: 0.65rem; }
+  .logo-badge              { padding: 0.25rem 0.55rem; font-size: 0.8rem; }
+  .card-logo               { top: 0.5rem; right: 0.5rem; }
+  .tabs-section            { padding: 1rem 0 0.7rem; }
+  .tab-button              { padding: 0.55rem 0.9rem; font-size: 0.68rem; gap: 0.4rem; }
+  .tab-icon                { width: 14px; height: 14px; }
+  .lineup-btn              { padding: 0.75rem 1.3rem; font-size: 0.8rem; }
+  .lineup-logo             { width: 30px; height: 30px; font-size: 1.1rem; }
+}
+
+@media (max-width: 374px) {
+  .esports-page            { padding-top: 60px; }
+  .hero-badge              { padding: 0.5rem 1rem; }
+  .hero-badge span         { font-size: 0.65rem; }
+  .players-grid            { max-width: 280px; gap: 1rem; }
+  .card-inner              { max-width: 270px; border-radius: 8px; }
+  .section-title           { font-size: 1.4rem; }
+  .card-content            { padding: 0.6rem; }
+  .card-name               { font-size: 0.78rem; }
+  .card-role               { font-size: 0.6rem; }
+  .logo-badge              { padding: 0.2rem 0.5rem; font-size: 0.75rem; }
+  .card-logo               { top: 0.4rem; right: 0.4rem; }
+  .tab-button              { padding: 0.5rem 0.8rem; font-size: 0.65rem; }
+  .lineup-btn              { padding: 0.7rem 1.2rem; font-size: 0.75rem; }
+  .lineup-logo             { width: 28px; height: 28px; font-size: 1rem; }
+}
+
+@media (max-width: 767px) {
+  .tabs-container::-webkit-scrollbar        { height: 4px; }
+  .tabs-container::-webkit-scrollbar-track  { background: rgba(255,255,255,0.05); border-radius: 2px; }
+  .tabs-container::-webkit-scrollbar-thumb  { background: rgba(120,50,255,0.4);   border-radius: 2px; }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .tab-button,
+  .lineup-btn                        { min-height: 44px; -webkit-tap-highlight-color: rgba(120,50,255,0.2); }
+  .player-card:hover .card-inner     { transform: translateY(-8px); }
+  .player-card:hover .card-image     { transform: scale(1.05); }
+}
+
+@media (max-height: 600px) and (orientation: landscape) {
+  .esports-page   { padding-top: 50px; }
+  .tabs-section   { padding: 1rem 0 0.5rem; }
+  .players-section{ padding: 2rem 0; }
+  .section-header { margin-bottom: 1.5rem; }
+}

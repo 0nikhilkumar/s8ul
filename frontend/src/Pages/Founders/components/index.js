@@ -1,0 +1,5 @@
+export { default as FounderCard } from './FounderCard'
+export { default as FoundersHeader } from './FoundersHeader'
+export { default as FoundersGrid } from './FoundersGrid'
+export { default as FoundersDecor } from './FoundersDecor'
+export { default as FounderDetail } from './FounderDetail'

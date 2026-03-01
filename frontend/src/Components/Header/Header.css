@@ -1,0 +1,456 @@
+/* ═══════════════════════════════════════
+   HEADER — Award-Winning Design
+   ═══════════════════════════════════════ */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 150;
+  padding: 1.25rem 0;
+  background: transparent;
+  transition: background 0.4s ease;
+}
+
+.header__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(1.5rem, 4vw, 3rem);
+  gap: 1rem;
+}
+
+/* ─── Logo ─── */
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  flex-shrink: 0;
+  will-change: transform, opacity, filter;
+  height: 36px;
+}
+
+.header__logo-icon {
+  width: 36px;
+  height: 36px;
+  will-change: transform;
+}
+
+.header__logo-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
+}
+
+.header__logo-text {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(0.9rem, 2.5vw, 1.4rem);
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: #fff;
+  line-height: 1;
+}
+
+/* ─── Decorative Lines ─── */
+.header__line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+  transform-origin: left center;
+}
+
+.header__line--left {
+  transform-origin: left center;
+  margin-right: 1rem;
+}
+
+.header__line--right {
+  transform-origin: right center;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.08));
+  margin-left: 1rem;
+}
+
+/* ─── Navigation ─── */
+.header__nav {
+  display: none;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+@media (min-width: 768px) {
+  .header__nav {
+    display: flex;
+  }
+}
+
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  padding: 0.4rem 0;
+  cursor: pointer;
+  will-change: transform;
+}
+
+.nav-link__text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(0.6rem, 1vw, 0.72rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: rgba(255, 255, 255, 0.55);
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover .nav-link__text {
+  color: #fff;
+}
+
+.nav-link__line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  transform: scaleX(0);
+  transform-origin: center;
+}
+
+/* ─── CTA Button ─── */
+.header__cta {
+  flex-shrink: 0;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .header__cta {
+    display: block;
+  }
+}
+
+.cta-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.4rem;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 100px;
+  background: transparent;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+
+.cta-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  border-radius: 100px;
+}
+
+.cta-btn:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.cta-btn__text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(0.6rem, 1vw, 0.72rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.85);
+  position: relative;
+  z-index: 2;
+  transition: color 0.4s ease;
+}
+
+.cta-btn:hover .cta-btn__text {
+  color: #000;
+}
+
+.cta-btn__arrow {
+  font-size: clamp(0.7rem, 1.2vw, 0.85rem);
+  color: rgba(255, 255, 255, 0.6);
+  position: relative;
+  z-index: 2;
+  transition: color 0.4s ease, transform 0.4s ease;
+}
+
+.cta-btn:hover .cta-btn__arrow {
+  color: #000;
+  transform: translateX(3px);
+}
+
+/* ─── Mobile Menu Button ─── */
+.header__menu-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 200;
+  position: relative;
+  will-change: transform;
+  height: 36px;
+  width: 36px;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .header__menu-btn {
+    display: none;
+  }
+}
+
+.header__menu-btn span {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: #fff;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  transform-origin: center;
+}
+
+.header__menu-btn.active span:first-child {
+  transform: translateY(3.75px) rotate(45deg);
+}
+
+.header__menu-btn.active span:last-child {
+  transform: translateY(-3.75px) rotate(-45deg);
+}
+
+/* ─── Mobile Menu ─── */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  background: #000;
+  clip-path: circle(0% at 100% 0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 100px;
+  padding-bottom: 40px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile-menu__nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  padding: 2rem 1rem;
+}
+
+.mobile-nav__link {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.3s ease, transform 0.3s ease;
+  text-transform: uppercase;
+}
+
+.mobile-nav__link:hover {
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.mobile-nav__link--cta {
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  margin-top: 1.5rem;
+  padding: 0.8rem 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 100px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.mobile-nav__link--cta:hover {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE HEADER
+   ═══════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0.85rem 0;
+  }
+
+  .header__inner {
+    padding: 0 1.25rem;
+  }
+
+  .header__line {
+    display: none;
+  }
+
+  /* Hide logo when mobile menu is open */
+  .header.menu-open .header__logo {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Keep header full height when menu is open */
+  .header.menu-open {
+    padding-top: 1.25rem !important;
+    padding-bottom: 1.25rem !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+  }
+
+  .header__logo {
+    position: relative;
+    z-index: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  .header__logo-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .header__logo-text {
+    font-size: 1.1rem;
+    letter-spacing: 0.12em;
+  }
+
+  .mobile-menu {
+    padding: 1rem;
+  }
+
+  .mobile-menu__nav {
+    gap: 1.75rem;
+  }
+
+  .mobile-nav__link {
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+  }
+
+  .mobile-nav__link--cta {
+    font-size: clamp(0.85rem, 2.5vw, 1rem);
+    padding: 0.65rem 1.75rem;
+    margin-top: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 0.65rem 0;
+  }
+
+  .header__inner {
+    padding: 0 1rem;
+  }
+
+  .header__logo {
+    gap: 0.5rem;
+    height: 26px;
+  }
+
+  .header__logo-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .header__logo-text {
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+  }
+
+  .header__menu-btn {
+    height: 26px;
+    width: 26px;
+  }
+
+  .header__menu-btn span {
+    width: 20px;
+  }
+
+  .mobile-menu__nav {
+    gap: 1.5rem;
+  }
+
+  .mobile-nav__link {
+    font-size: 1.5rem;
+  }
+
+  .mobile-nav__link--cta {
+    font-size: 0.75rem;
+    padding: 0.55rem 1.25rem;
+  }
+}
+
+/* Very Small Mobile (iPhone SE, Galaxy Fold, etc.) */
+@media (max-width: 375px) {
+  .header {
+    padding: 0.5rem 0;
+  }
+
+  .header__inner {
+    padding: 0 0.75rem;
+  }
+
+  .header__logo-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .header__logo {
+    height: 22px;
+  }
+
+  .header__logo-text {
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+  }
+
+  .header__menu-btn {
+    height: 22px;
+    width: 22px;
+  }
+
+  .header__menu-btn span {
+    width: 18px;
+    height: 1.5px;
+  }
+
+  .mobile-menu__nav {
+    gap: 1.25rem;
+  }
+
+  .mobile-nav__link {
+    font-size: 1.3rem;
+  }
+
+  .mobile-nav__link--cta {
+    font-size: 0.7rem;
+    padding: 0.5rem 1rem;
+  }
+}
