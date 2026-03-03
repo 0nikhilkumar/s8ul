@@ -45,6 +45,8 @@ function Esports() {
     const tabsRef  = useRef(null);
     const cardsRef = useRef(null);
 
+    const getPlayerCards = () => gsap.utils.toArray('.player-card');
+
     // ── Fetch players ─────────────────────────────────────────────────────────
     const fetchPlayers = async (tabId, teamName) => {
         const tab = TABS.find(t => t.id === tabId);
@@ -82,58 +84,87 @@ function Esports() {
 
     // ── Card entrance — smooth fade+slide, kill any ongoing tween first ───────
     useEffect(() => {
-        if (!loading && players.length > 0) {
-            gsap.killTweensOf('.player-card');
-            gsap.fromTo('.player-card',
+        const playerCards = getPlayerCards();
+        if (!loading && players.length > 0 && playerCards.length > 0) {
+            gsap.killTweensOf(playerCards);
+            gsap.fromTo(playerCards,
                 { opacity: 0, y: 20 },
                 {
                     opacity: 1, y: 0,
                     duration: 0.4,
                     stagger: 0.06,
                     ease: 'power2.out',
-                    clearProps: 'all'
-                }
-            );
-        }
-    }, [players, loading]);
+                        const heroBadge = gsap.utils.toArray('.hero-badge');
+                        const sectionTitle = gsap.utils.toArray('.section-title');
+                        const tabs = gsap.utils.toArray('.tab-button');
 
-    // ── Hero + tabs entrance ──────────────────────────────────────────────────
-    useEffect(() => {
-        const tl = gsap.timeline();
-        tl.fromTo('.hero-badge',
-            { opacity: 0, scale: 0.5 },
-            { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(2)' }
-        ).fromTo('.hero-title',
-            { opacity: 0, y: 50 },
-            { opacity: 1, y: 0, duration: 0.8, stagger: 0.2, ease: 'power3.out' },
-            '-=0.3'
-        );
-        gsap.fromTo('.tab-button',
-            { opacity: 0, y: -30 },
-            {
-                opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out',
-                scrollTrigger: { trigger: '.tabs-container', start: 'top 80%' }
-            }
-        );
-        return () => ScrollTrigger.getAll().forEach(t => t.kill());
-    }, []);
+                        if (heroBadge.length > 0) {
+                            tl.fromTo(heroBadge,
+                                { opacity: 0, scale: 0.5 },
+                                { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(2)' }
+                            );
+                        }
 
-    // ── Tab change — kill previous tweens, quick fade out then set state ──────
-    const handleTabChange = (tabId) => {
-        if (tabId === activeTab) return;              // already active — do nothing
-        gsap.killTweensOf('.player-card');
-        gsap.to('.player-card', {
-            opacity: 0, y: 10, duration: 0.15,
-            overwrite: 'auto',
-            onComplete: () => {
-                setActiveTab(tabId);
-                if (tabId === 'bgmi') setActiveBGMILineup('soul');
-            }
-        });
-    };
+                        if (sectionTitle.length > 0) {
+                            tl.fromTo(sectionTitle,
+                                { opacity: 0, y: 50 },
+                                { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+                                '-=0.3'
+                            );
+                        }
 
-    // ── Lineup change — same guard ────────────────────────────────────────────
-    const handleBGMILineupChange = (lineup) => {
+                        if (tabs.length > 0) {
+                            gsap.fromTo(tabs,
+                                { opacity: 0, y: -30 },
+                                {
+                                    opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out',
+                                    scrollTrigger: { trigger: '.tabs-container', start: 'top 80%' }
+                                }
+                            );
+                        }
+
+                        return () => ScrollTrigger.getAll().forEach(t => t.kill());
+                    }, []);
+
+                    // ── Tab change — kill previous tweens, quick fade out then set state ──────
+                    const handleTabChange = (tabId) => {
+                        if (tabId === activeTab) return;              // already active — do nothing
+                        const playerCards = getPlayerCards();
+
+                        if (playerCards.length === 0) {
+                            setActiveTab(tabId);
+                            if (tabId === 'bgmi') setActiveBGMILineup('soul');
+                            return;
+                        }
+
+                        gsap.killTweensOf(playerCards);
+                        gsap.to(playerCards, {
+                            opacity: 0, y: 10, duration: 0.15,
+                            overwrite: 'auto',
+                            onComplete: () => {
+                                setActiveTab(tabId);
+                                if (tabId === 'bgmi') setActiveBGMILineup('soul');
+                            }
+                        });
+                    };
+
+                    // ── Lineup change — same guard ────────────────────────────────────────────
+                    const handleBGMILineupChange = (lineup) => {
+                        if (lineup === activeBGMILineup) return;     // same lineup — do nothing
+                        const playerCards = getPlayerCards();
+
+                        if (playerCards.length === 0) {
+                            setActiveBGMILineup(lineup);
+                            return;
+                        }
+
+                        gsap.killTweensOf(playerCards);
+                        gsap.to(playerCards, {
+                            opacity: 0, duration: 0.15,
+                            overwrite: 'auto',
+                            onComplete: () => setActiveBGMILineup(lineup)
+                        });
+                    };
         if (lineup === activeBGMILineup) return;     // same lineup — do nothing
         gsap.killTweensOf('.player-card');
         gsap.to('.player-card', {
