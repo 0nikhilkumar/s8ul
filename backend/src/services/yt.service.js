@@ -1,92 +1,53 @@
-const YT_BASE = "https://www.googleapis.com/youtube/v3";
-const API_KEY = process.env.YOUTUBE_API_KEY;
-
-const extractInstagram = (text = "") => {
-    const match = text.match(/https?:\/\/(?:www\.)?instagram\.com\/[\w._/?=&%-]+/i);
-    return match ? match[0] : null;
-};
-
-const chunkArray = (items, size) => {
-    const chunks = [];
-    for (let index = 0; index < items.length; index += size) {
-        chunks.push(items.slice(index, index + size));
-    }
-    return chunks;
-};
-
-const mapChannel = (channel) => ({
-    creator_id: channel.id,
-    name: channel.snippet?.title || null,
-    youtube_url: channel.snippet?.customUrl
-        ? `https://www.youtube.com/${channel.snippet.customUrl}`
-        : `https://www.youtube.com/channel/${channel.id}`,
-    instagram_url: extractInstagram(channel.snippet?.description || ""),
-    description: channel.snippet?.description || null,
-    thumbnail: channel.snippet?.thumbnails?.high?.url || channel.snippet?.thumbnails?.default?.url || null,
-    subscribers: channel.statistics?.subscriberCount || null,
-    total_views: channel.statistics?.viewCount || null,
-    total_videos: channel.statistics?.videoCount || null,
-    country: channel.brandingSettings?.channel?.country || null,
-    fetched_at: new Date().toISOString(),
-});
-
-const fetchChannelData = async (creatorIds = []) => {
+async function fetchChannelData(identifier) {
     try {
-        if (!Array.isArray(creatorIds) || creatorIds.length === 0) {
-            return [];
-        }
+        let channelId;
 
-        if (!API_KEY) {
-            console.error("❌ YOUTUBE_API_KEY is missing");
-            return [];
-        }
-
-        const uniqueIds = [...new Set(
-            creatorIds
-                .filter((creatorId) => typeof creatorId === "string")
-                .map((creatorId) => creatorId.trim())
-                .filter((creatorId) => creatorId.startsWith("UC"))
-        )];
-
-        if (!uniqueIds.length) {
-            return [];
-        }
-
-        const idChunks = chunkArray(uniqueIds, 50);
-        const channelsById = new Map();
-
-        for (const idChunk of idChunks) {
-            const params = new URLSearchParams({
-                part: "snippet,statistics,brandingSettings",
-                id: idChunk.join(","),
-                key: API_KEY,
+        // If already channel ID
+        if (identifier.startsWith("UC")) {
+            channelId = identifier;
+        } else {
+            const searchRes = await axios.get(`${YT_BASE}/search`, {
+                params: {
+                    part: "snippet",
+                    q: identifier,
+                    type: "channel",
+                    maxResults: 1,
+                    key: API_KEY,
+                },
             });
 
-            const response = await fetch(`${YT_BASE}/channels?${params.toString()}`);
-
-            if (!response.ok) {
-                const errorBody = await response.text();
-                console.error("❌ YouTube API error:", errorBody);
-                continue;
-            }
-
-            const data = await response.json();
-            const channels = data?.items || [];
-
-            for (const channel of channels) {
-                channelsById.set(channel.id, mapChannel(channel));
-            }
+            if (!searchRes.data.items.length) return null;
+            channelId = searchRes.data.items[0].id.channelId;
         }
 
-        return uniqueIds
-            .map((creatorId) => channelsById.get(creatorId))
-            .filter(Boolean);
-    } catch (error) {
-        console.error("❌ Error fetching channel data:", error.message);
-        return [];
-    }
-};
+        const channelRes = await axios.get(`${YT_BASE}/channels`, {
+            params: {
+                part: "snippet,statistics,brandingSettings",
+                id: channelId,
+                key: API_KEY,
+            },
+        });
 
-module.exports = {
-    fetchChannelData,
-};
+        const channel = channelRes.data.items[0];
+        if (!channel) return null;
+
+        return {
+            creator_id: channel.id,
+            name: channel.snippet.title,
+            youtube_url: channel.snippet.customUrl
+                ? `https://www.youtube.com/${channel.snippet.customUrl}`
+                : null,
+            instagram_url: extractInstagram(channel.snippet.description),
+            description: channel.snippet.description,
+            thumbnail: channel.snippet.thumbnails.high.url,
+            subscribers: channel.statistics.subscriberCount,
+            total_views: channel.statistics.viewCount,
+            total_videos: channel.statistics.videoCount,
+            country: channel.brandingSettings?.channel?.country || null,
+            fetched_at: new Date().toISOString(),
+        };
+    } catch (err) {
+        console.error("❌ Error:", err.response?.data || err.message);
+        return null;
+    }
+}
