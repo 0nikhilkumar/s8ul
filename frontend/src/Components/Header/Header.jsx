@@ -192,13 +192,17 @@ const Header = () => {
     } else {
       // Unlock body scroll when menu is closed
       const scrollY = document.body.style.top
+      const hadBodyLock = document.body.style.position === 'fixed'
       document.body.style.position = ''
       document.body.style.top = ''
       document.body.style.left = ''
       document.body.style.right = ''
       document.body.style.overflow = ''
-      const restoredScrollY = parseInt(scrollY || '0') * -1
-      window.scrollTo(0, restoredScrollY)
+
+      const restoredScrollY = parseInt(scrollY || '0', 10) * -1
+      if (hadBodyLock && Number.isFinite(restoredScrollY)) {
+        window.scrollTo(0, restoredScrollY)
+      }
 
       // Restore header shrink state if user was scrolled
       if (restoredScrollY > 80) {
@@ -216,6 +220,14 @@ const Header = () => {
         duration: 0.6,
         ease: 'power4.inOut',
       })
+    }
+
+    return () => {
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.body.style.left = ''
+      document.body.style.right = ''
+      document.body.style.overflow = ''
     }
   }, [menuOpen])
 
@@ -272,7 +284,7 @@ const Header = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div ref={mobileMenuRef} className="mobile-menu">
+      <div ref={mobileMenuRef} className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
         <nav className="mobile-menu__nav">
           {navItems.map((item) => (
             <a
